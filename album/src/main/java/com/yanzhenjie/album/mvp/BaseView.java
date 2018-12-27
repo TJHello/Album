@@ -362,6 +362,10 @@ public abstract class BaseView<Presenter extends BasePresenter> {
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
 
+    public void toastShort(@StringRes int message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
     public void snackBar(CharSequence message) {
         Snackbar snackbar = Snackbar.make(mSource.getView(), message, Snackbar.LENGTH_SHORT);
         View view = snackbar.getView();

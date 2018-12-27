@@ -15,6 +15,7 @@
  */
 package com.yanzhenjie.album.app.camera;
 
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -22,6 +23,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.yanzhenjie.album.Action;
 import com.yanzhenjie.album.Album;
@@ -114,7 +116,12 @@ public class CameraActivity extends BaseActivity {
     protected void onPermissionGranted(int code) {
         switch (code) {
             case CODE_PERMISSION_IMAGE: {
-                AlbumUtils.takeImage(this, CODE_ACTIVITY_TAKE_IMAGE, new File(mCameraFilePath));
+                try {
+                    AlbumUtils.takeImage(this, CODE_ACTIVITY_TAKE_IMAGE, new File(mCameraFilePath));
+                } catch (ActivityNotFoundException ex) {
+                    Toast.makeText(this, R.string.album_camera_not_found, Toast.LENGTH_SHORT).show();
+                    ex.printStackTrace();
+                }
                 break;
             }
             case CODE_PERMISSION_VIDEO: {

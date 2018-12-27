@@ -249,6 +249,10 @@ public class AlbumActivity extends BaseActivity implements
 
     @Override
     public void clickCamera(View v) {
+        if (mCheckedList == null) {
+            // please wait initiation.
+            return;
+        }
         int hasCheckSize = mCheckedList.size();
         if (hasCheckSize >= mLimitCount) {
             int messageRes;
@@ -347,6 +351,8 @@ public class AlbumActivity extends BaseActivity implements
                 mMediaScanner = new MediaScanner(AlbumActivity.this);
             }
             mMediaScanner.scan(result);
+
+            if (isFinishing()) return; // User Cancel
 
             PathConversion conversion = new PathConversion(sSizeFilter, sMimeFilter, sDurationFilter);
             PathConvertTask task = new PathConvertTask(conversion, AlbumActivity.this);
@@ -585,7 +591,7 @@ public class AlbumActivity extends BaseActivity implements
             mLoadingDialog = new LoadingDialog(this);
             mLoadingDialog.setupViews(mWidget);
         }
-        if (!mLoadingDialog.isShowing()) {
+        if (!mLoadingDialog.isShowing() && (!isFinishing())) {
             mLoadingDialog.show();
         }
     }
@@ -594,7 +600,8 @@ public class AlbumActivity extends BaseActivity implements
      * Dismiss loading dialog.
      */
     public void dismissLoadingDialog() {
-        if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
+        // Fix Bug:not attached to window manager
+        if (mLoadingDialog != null && (!isFinishing()) && mLoadingDialog.isShowing()) {
             mLoadingDialog.dismiss();
         }
     }
