@@ -33,9 +33,12 @@ public class AlbumSingleWrapper extends BasicChoiceAlbumWrapper<AlbumSingleWrapp
 
     private Filter<Long> mDurationFilter;
 
+    private ArrayList<AlbumFile> mTopAlbumFile;
+
     public AlbumSingleWrapper(Context context) {
         super(context);
     }
+
 
     /**
      * Filter video duration.
@@ -47,6 +50,15 @@ public class AlbumSingleWrapper extends BasicChoiceAlbumWrapper<AlbumSingleWrapp
         return this;
     }
 
+    public ArrayList<AlbumFile> getTopAlbumFile() {
+        return mTopAlbumFile;
+    }
+
+    public AlbumSingleWrapper setTopAlbumFile(ArrayList<AlbumFile> topAlbumFile) {
+        this.mTopAlbumFile = topAlbumFile;
+        return this;
+    }
+
     @Override
     public void start() {
         AlbumActivity.sSizeFilter = mSizeFilter;
@@ -54,6 +66,7 @@ public class AlbumSingleWrapper extends BasicChoiceAlbumWrapper<AlbumSingleWrapp
         AlbumActivity.sDurationFilter = mDurationFilter;
         AlbumActivity.sResult = mResult;
         AlbumActivity.sCancel = mCancel;
+        AlbumActivity.sTopAlbumFile = mTopAlbumFile;
         Intent intent = new Intent(mContext, AlbumActivity.class);
         intent.putExtra(Album.KEY_INPUT_WIDGET, mWidget);
 

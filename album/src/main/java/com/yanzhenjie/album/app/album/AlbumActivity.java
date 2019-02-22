@@ -71,6 +71,8 @@ public class AlbumActivity extends BaseActivity implements
     public static Action<ArrayList<AlbumFile>> sResult;
     public static Action<String> sCancel;
 
+    public static ArrayList<AlbumFile> sTopAlbumFile;
+
     private List<AlbumFolder> mAlbumFolders;
     private int mCurrentFolder;
 
@@ -195,6 +197,9 @@ public class AlbumActivity extends BaseActivity implements
         mView.setLoadingDisplay(false);
         mAlbumFolders = albumFolders;
         mCheckedList = checkedFiles;
+
+        if (sTopAlbumFile != null && !sTopAlbumFile.isEmpty())
+            mAlbumFolders.get(0).getAlbumFiles().addAll(0, sTopAlbumFile);
 
         if (mAlbumFolders.get(0).getAlbumFiles().isEmpty()) {
             Intent intent = new Intent(this, NullActivity.class);
@@ -613,6 +618,7 @@ public class AlbumActivity extends BaseActivity implements
         sDurationFilter = null;
         sResult = null;
         sCancel = null;
+        sTopAlbumFile = null;
         super.finish();
     }
 }
