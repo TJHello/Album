@@ -29,8 +29,19 @@ import java.util.ArrayList;
  */
 public final class ImageSingleWrapper extends BasicChoiceWrapper<ImageSingleWrapper, ArrayList<AlbumFile>, String, AlbumFile> {
 
+    private ArrayList<AlbumFile> mTopAlbumFile;
+
     public ImageSingleWrapper(Context context) {
         super(context);
+    }
+
+    public ArrayList<AlbumFile> getTopAlbumFile() {
+        return mTopAlbumFile;
+    }
+
+    public ImageSingleWrapper topAlbumFile(ArrayList<AlbumFile> topAlbumFile) {
+        this.mTopAlbumFile = topAlbumFile;
+        return this;
     }
 
     @Override
@@ -39,6 +50,7 @@ public final class ImageSingleWrapper extends BasicChoiceWrapper<ImageSingleWrap
         AlbumActivity.sMimeFilter = mMimeTypeFilter;
         AlbumActivity.sResult = mResult;
         AlbumActivity.sCancel = mCancel;
+        AlbumActivity.sTopAlbumFile = mTopAlbumFile;
         Intent intent = new Intent(mContext, AlbumActivity.class);
         intent.putExtra(Album.KEY_INPUT_WIDGET, mWidget);
 

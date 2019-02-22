@@ -54,7 +54,7 @@ public class AlbumSingleWrapper extends BasicChoiceAlbumWrapper<AlbumSingleWrapp
         return mTopAlbumFile;
     }
 
-    public AlbumSingleWrapper setTopAlbumFile(ArrayList<AlbumFile> topAlbumFile) {
+    public AlbumSingleWrapper topAlbumFile(ArrayList<AlbumFile> topAlbumFile) {
         this.mTopAlbumFile = topAlbumFile;
         return this;
     }
